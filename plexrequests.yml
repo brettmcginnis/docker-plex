@@ -1,0 +1,18 @@
+services:
+  plexrequests:
+    container_name: plexrequests
+    env_file:
+    - shared-config.env
+    environment:
+      URL_BASE: HOST_IP:HOST_PORT
+    external_links:
+    - couchpotato
+    - sonarr
+    image: linuxserver/plexrequests:latest
+    ports:
+    - HOST_PORT:3000
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ~/plexrequests/config:/config
+version: '2'
+

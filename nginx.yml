@@ -1,0 +1,15 @@
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    network_mode: host
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ~/nginx/letsencrypt:/letsencrypt # Optional
+    - ~/nginx/letsencrypt:/etc/letsencrypt # Optional
+    - ~/nginx/ssl:/etc/nginx/ssl
+    - ~/nginx/nginx.conf:/etc/nginx/nginx.conf
+    - ~/nginx/conf:/conf
+version: '2'

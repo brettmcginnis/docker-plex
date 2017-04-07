@@ -1,0 +1,18 @@
+services:
+  plex:
+    container_name: plex
+    env_file:
+    - shared-config.env
+    environment:
+      VERSION: latest
+    expose:
+    - 32400
+    image: linuxserver/plex:latest
+    network_mode: host # required by image owner
+    volumes:
+    - ~/plex/config:/config
+    - ~/plex/series:/data/tvshows
+    - ~/plex/movies:/data/movies
+    - ~/plex/transcode:/transcode
+version: '2'
+

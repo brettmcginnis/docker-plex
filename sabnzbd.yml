@@ -1,0 +1,31 @@
+services:
+  sabnzbd-pia:
+    cap_add:
+    - NET_ADMIN
+    container_name: sabnzbd-pia
+    devices:
+    - /dev/net/tun
+    dns:
+    - 8.8.8.8
+    - 8.8.4.4
+    environment:
+      PASSWORD: PIA_PASSWORD
+      REGION: US West
+      USERNAME: PIA_USERNAME
+    image: brettmcgin/private_internet_access:latest
+    ports:
+    - HOST_PORT:8080
+    - 9090
+    privileged: true
+  sabnzbd:
+    container_name: sabnzbd
+    env_file:
+    - shared-config.env
+    image: linuxserver/sabnzbd:latest
+    network_mode: service:sabnzbd-pia
+    volumes:
+    - ~/sabnzbd/config:/config
+    - ~/sabnzbd/incomplete:/incomplete
+    - ~/sabnzbd/complete:/complete
+version: '2'
+

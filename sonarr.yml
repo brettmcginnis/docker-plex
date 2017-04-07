@@ -1,0 +1,16 @@
+services:
+  sonarr:
+    container_name: sonarr
+    env_file:
+    - shared-config.env
+    image: linuxserver/sonarr:latest
+    ports:
+    - HOST_PORT:8989
+    volumes:
+    - /dev/rtc:/dev/rtc:ro
+    - ~/sonarr/config:/config
+    - ~/sonarr/series:/tv
+    - ~/sonarr/incomplete:/incomplete
+    - ~/sonarr/complete:/complete
+version: '2'
+

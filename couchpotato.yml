@@ -1,0 +1,15 @@
+services:
+  couchpotato:
+    container_name: couchpotato
+    env_file:
+    - shared-config.env
+    image: linuxserver/couchpotato:latest
+    ports:
+    - HOST_PORT:5050
+    volumes:
+    - ~/couchpotato/config:/config
+    - ~/couchpotato/incomplete:/incomplete
+    - ~/couchpotato/complete:/complete
+    - ~/couchpotato/movies:/movies
+version: '2'
+

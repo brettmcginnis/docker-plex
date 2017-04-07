@@ -1,0 +1,32 @@
+services:
+  rutorrent-pia:
+    cap_add:
+    - NET_ADMIN
+    container_name: rutorrent-pia
+    devices:
+    - /dev/net/tun
+    dns:
+    - 8.8.8.8
+    - 8.8.4.4
+    environment:
+      PASSWORD: PIA_PASSWORD
+      REGION: US West
+      USERNAME: PIA_USERNAME
+    image: brettmcgin/private_internet_access:latest
+    ports:
+    - HOST_PORT:80
+    - 5000
+    - 51413
+    - 6881/udp
+    privileged: true
+  rutorrent:
+    container_name: rutorrent
+    env_file:
+    - shared-config.env
+    image: linuxserver/rutorrent:latest
+    network_mode: service:rutorrent-pia
+    volumes:
+    - ~/rutorrent/config:/config
+    - ~/rutorrent/incomplete:/incomplete
+    - ~/rutorrent/complete:/complete
+version: '2'
